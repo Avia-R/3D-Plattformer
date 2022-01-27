@@ -5,6 +5,7 @@ using UnityEngine;
 public class Moving_Platform : MonoBehaviour
 {
 
+    public GameObject Player;
     public Vector3[] points;
     public int point_number = 0;
     private Vector3 current_target;
@@ -71,11 +72,17 @@ public void NextPlatform()
 
 private void OnTriggerEnter(Collider other)
 {
-    other.transform.parent = transform;
+    if(other.gameObject == Player)
+    {
+        Player.transform.parent = transform;
+    }
 }
 
 private void OnTriggerExit(Collider other)
 {
-    other.transform.parent = null;
+   if(other.gameObject == Player)
+    {
+        Player.transform.parent = null;
+    }
 }
 }

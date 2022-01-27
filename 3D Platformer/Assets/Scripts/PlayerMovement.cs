@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float rotationSpeed;
 
+    [SerializeField] private Transform cameraTransform;
+
     private Animator anim;
     // Start is called before the first frame update
     private void Start()
@@ -35,6 +37,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void Spawn()
+    {
+        transform.position = GameObject.FindWithTag("SpawnPoint").transform.position;
+    }
+
+    public void OnDeath(){
+        Spawn();
+        GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<GameMaster>().setLifes(-1);
+    }
+
     private void Move() 
     {
 
@@ -46,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
 
         moveDirection = new Vector3(moveX, 0, moveZ);
+        moveDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * moveDirection;
         moveDirection.Normalize();
 
                 if(moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
@@ -112,5 +125,16 @@ public class PlayerMovement : MonoBehaviour
     {
         anim.SetTrigger("Attack");
 
+    }
+
+    private void OnApplicationFocus(bool focusStatus)
+    {
+        if(focusStatus)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else{
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

@@ -30,5 +30,9 @@ public class ObstaclePush : MonoBehaviour
 
             rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
         }
+        else
+        {
+            Debug.Log("Is null");
+        }
     }
 }
