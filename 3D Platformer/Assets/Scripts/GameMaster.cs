@@ -28,7 +28,7 @@ public class GameMaster : MonoBehaviour
        MakeSingleton();
        setCoins(0);
        setHealth(50f);
-       setLifes(3);
+       setLifes(2);
        setMaxHealth(50f);
        setMaxLifes(3);
        setAttackDamage(10);
