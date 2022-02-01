@@ -17,4 +17,9 @@ public class MoveHintY : MonoBehaviour
 		runningTime += Time.deltaTime;
 		arrow.transform.localPosition = newLocation;
 	}
+
+	public void setOffset(float newOFF)
+	{
+		this.offset = newOFF;
+	}
 }

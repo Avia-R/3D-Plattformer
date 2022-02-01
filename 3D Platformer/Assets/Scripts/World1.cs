@@ -27,6 +27,7 @@ private void OnTriggerEnter(Collider other)
     {
         Player.transform.parent = transform;
         isOn = true;
+        GameObject.FindGameObjectWithTag("World1").GetComponent<MoveHintY>().setOffset((float)0.1);
     }
 }
 private void OnTriggerExit(Collider other)
@@ -35,6 +36,8 @@ private void OnTriggerExit(Collider other)
     {
         Player.transform.parent = null;
         isOn = false;
+        GameObject.FindGameObjectWithTag("World1").GetComponent<MoveHintY>().setOffset((float)0.03);
     }
 }
+
 }

@@ -9,9 +9,6 @@ public class HealthBarScript : MonoBehaviour
    private float CurrentHealth;
    private float MaxHealth;
 
-   public float Health = 100f;
-   public float Maxmax = 100f;
-
    private void Start() {
        HealthBar = GetComponent<Image>();
    }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class GameMaster : MonoBehaviour
     private int maxLifes;
     private float maxHealth;
     private int attackDamage;
+
+    private float timer;
+    private bool isUpdated;
+
+    
     void Start()
     {
         
@@ -21,18 +27,67 @@ public class GameMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Scene currentScene = SceneManager.GetActiveScene ();
+        string sceneName = currentScene.name;
+
+        switch(sceneName)
+        {
+            case "Main Platform":
+            if(!isUpdated)
+            {
+                GameObject.FindGameObjectWithTag("Timer").GetComponent<TimerScript>().setIsLevel(false);
+                setTimer(500);
+                setIsUpdated(true);
+            }
+                break;
+            case "World 1 Level 1":
+                GameObject.FindGameObjectWithTag("Timer").GetComponent<TimerScript>().setIsLevel(true);
+                setIsUpdated(false);
+                break;
+
+            default:
+            //do nothing
+            break;
+        }
+
+        if(getLifes() <= 0)
+        {
+            SceneManager.LoadScene("Main Platform");
+            setLifes(3);
+            setHealth(50f);
+
+        }
     }
     void Awake()
     {
        MakeSingleton();
        setCoins(0);
        setHealth(50f);
-       setLifes(2);
+       setLifes(3);
        setMaxHealth(50f);
        setMaxLifes(3);
        setAttackDamage(10);
+       setIsUpdated(false);
     }
+
+    public void setIsUpdated(bool newBool)
+    {
+        isUpdated = newBool;
+    }
+
+    public float getTime()
+    {
+        return timer;
+    }
+    public void setTimer(float newTimer)
+    {
+        timer = newTimer;
+    }
+
+    public void increaseTimer(float newTime) 
+        {
+            timer += newTime;
+        }
 
     private void MakeSingleton()
     {
@@ -75,6 +130,10 @@ public class GameMaster : MonoBehaviour
     public void setHealth(float health)
     {
         Health = Health + health;
+        if(Health > maxHealth)
+        {
+            Health = maxHealth;
+        }
     }
     public int getMaxLifes()
     {

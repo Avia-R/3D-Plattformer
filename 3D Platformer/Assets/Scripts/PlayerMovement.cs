@@ -19,11 +19,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
 
     private Animator anim;
+
+    private bool mouseEnable;
     // Start is called before the first frame update
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
+        mouseEnable = true;
     }
 
     // Update is called once per frame
@@ -31,10 +34,18 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(mouseEnable)
         {
-            Attack();
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                Attack();
+            }
         }
+    }
+
+    public void setmouseEnable(bool isAttack)
+    {
+        mouseEnable = isAttack;
     }
 
     public void Spawn()

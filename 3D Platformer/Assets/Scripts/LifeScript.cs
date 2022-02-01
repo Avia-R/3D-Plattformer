@@ -16,7 +16,7 @@ public class LifeScript : MonoBehaviour
 
    private void Update() {
       CurrentLifes = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<GameMaster>().getLifes();
-      LifeLeft = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<GameMaster>().getLifes();
+      LifeLeft = GameObject.FindGameObjectWithTag("EditorOnly").GetComponent<GameMaster>().getMaxLifes();
       LifeText.SetText("LIFES: " + CurrentLifes + "/" + LifeLeft);
 
    }
